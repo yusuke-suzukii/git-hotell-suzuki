@@ -10,6 +10,10 @@ h1 {
 	font-size: 1.5rem;
 }
 
+h2 {
+   font-size: 1.475rem;
+}
+
 h3 {
 	font-size: 1.25rem;
 }
@@ -96,21 +100,37 @@ moattravel-btn-danger:hover {
 }
 
 .moattravel-card-link {
-	transition: 0.3s;
+
+
+ transition: 0.3s;
 }
 
 .moattravel-card-link:hover {
-	opacity: 0.7;
+ opacity: 0.7;
 }
 
 .moattravel-horizontal-card-image {
-	width: 100%;
-	height: 240px;
-	object-fit: cover;
+ width: 100%;
+ height: 240px;
+  object-fit: cover;
 }
 
+ .moattravel-sort-box {
+   width: 150px;
+ }
+
+ .moattravel-vertical-card-image {
+ width: 100%;
+ height: 150px;
+ object-fit: cover;
+ }
+
+.moattravel-search-form {
+     max-width: 300px;
+ }
+ 
 @media screen and (min-width: 1400px) {
-	.moattravel-container {
-		max-width: 1200px;
-	}
+  .moattravel-container {
+    max-width: 1200px;
+  }
 }
