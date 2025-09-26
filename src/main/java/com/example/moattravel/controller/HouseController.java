@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.moattravel.entity.House;
+import com.example.moattravel.form.ReservationInputForm;
 import com.example.moattravel.repository.HouseRepository;
 
 @Controller
 @RequestMapping("/houses")
-
 public class HouseController {
 	private final HouseRepository houseRepository;
 
@@ -41,22 +41,18 @@ public class HouseController {
 				housePage = houseRepository.findByNameLikeOrAddressLikeOrderByCreatedAtDesc("%" + keyword + "%",
 						"%" + keyword + "%", pageable);
 			}
-
 		} else if (area != null && !area.isEmpty()) {
 			if (order != null && order.equals("priceAsc")) {
 				housePage = houseRepository.findByAddressLikeOrderByPriceAsc("%" + area + "%", pageable);
-
 			} else {
 				housePage = houseRepository.findByAddressLikeOrderByCreatedAtDesc("%" + area + "%", pageable);
 			}
-
 		} else if (price != null) {
 			if (order != null && order.equals("priceAsc")) {
 				housePage = houseRepository.findByPriceLessThanEqualOrderByPriceAsc(price, pageable);
 			} else {
 				housePage = houseRepository.findByPriceLessThanEqualOrderByCreatedAtDesc(price, pageable);
 			}
-
 		} else {
 			if (order != null && order.equals("priceAsc")) {
 				housePage = houseRepository.findAllByOrderByPriceAsc(pageable);
@@ -78,6 +74,9 @@ public class HouseController {
 	public String show(@PathVariable(name = "id") Integer id, Model model) {
 		House house = houseRepository.getReferenceById(id);
 		model.addAttribute("house", house);
+		model.addAttribute("reservationInputForm", new ReservationInputForm());
+
 		return "houses/show";
 	}
+
 }

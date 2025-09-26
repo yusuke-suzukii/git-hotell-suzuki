@@ -1,5 +1,6 @@
 package com.example.moattravel.entity;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 import jakarta.persistence.Column;
@@ -11,53 +12,41 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+import lombok.Data;
+
 @Entity
-@Table(name = "reservations") // ← DBテーブル名
+@Table(name = "reservations")
+@Data
+
 public class Reservation {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Integer id;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // AUTO_INCREMENT
-    private Integer id;
+	@ManyToOne
+	@JoinColumn(name = "house_id")
+	private House house;
 
-    @ManyToOne // 民宿への外部キー
-    @JoinColumn(name = "house_id", nullable = false)
-    private House house;
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 
-    @ManyToOne // ユーザーへの外部キー
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+	@Column(name = "checkin_date")
+	private LocalDate checkinDate;
 
-    @Column(name = "checkin_date")
-    private LocalDate checkinDate;
+	@Column(name = "checkout_date")
+	private LocalDate checkoutDate;
 
-    @Column(name = "checkout_date")
-    private LocalDate checkoutDate;
+	@Column(name = "number_of_people")
+	private Integer numberOfPeople;
+	@Column(name = "amount")
+	private Integer amount;
 
-    @Column(name = "number_of_people")
-    private Integer numberOfPeople;
+	@Column(name = "created_at", insertable = false, updatable = false)
+	private Timestamp createdAt;
 
-    @Column(name = "amount")
-    private Integer amount;
+	@Column(name = "updated_at", insertable = false, updatable = false)
+	private Timestamp updatedAt;
 
-    // --- getter / setter ---
-    public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
-
-    public House getHouse() { return house; }
-    public void setHouse(House house) { this.house = house; }
-
-    public User getUser() { return user; }
-    public void setUser(User user) { this.user = user; }
-
-    public LocalDate getCheckinDate() { return checkinDate; }
-    public void setCheckinDate(LocalDate checkinDate) { this.checkinDate = checkinDate; }
-
-    public LocalDate getCheckoutDate() { return checkoutDate; }
-    public void setCheckoutDate(LocalDate checkoutDate) { this.checkoutDate = checkoutDate; }
-
-    public Integer getNumberOfPeople() { return numberOfPeople; }
-    public void setNumberOfPeople(Integer numberOfPeople) { this.numberOfPeople = numberOfPeople; }
-
-    public Integer getAmount() { return amount; }
-    public void setAmount(Integer amount) { this.amount = amount; }
 }
